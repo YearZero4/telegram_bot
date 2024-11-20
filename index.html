@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TELEGRAM BOT</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="container">
+
+<div class="container1">
+    <h2>CONTACTAR POR TELEGRAM</h2>
+<textarea id="mensaje" placeholder="Escribir mensaje" autocomplete="off" required=""></textarea><p>
+<button onclick="send()">ENVIAR</button>
+</div>
+</div>
+
+<script>
+const botToken = '8060284912:AAHOn9bQwQEAcllFcb3p2wKfsp_K0VjG7Xs';
+const chatId = '6891535423';
+
+function send() {
+const mensaje = document.getElementById("mensaje").value;
+let formData = new FormData();
+formData.append("chat_id", chatId);
+formData.append("text", mensaje);
+
+fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+method: "POST",
+body: formData,
+})
+.then((response) => response.json())
+.then((data) => {
+if (data.ok) {
+alert("Mensaje enviado a Telegram con Exito");
+document.getElementById("mensaje").value = ''; 
+} else {
+alert("Error al enviar el mensaje");
+}
+})
+.catch((error) => {
+console.error("Error:", error);
+alert("Error al enviar el mensaje");
+});
+}
+</script>
+</body>
+</html>
